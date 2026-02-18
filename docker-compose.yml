@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    hostname: cupon_app
+    container_name: cupon_app
+    restart: always
+    entrypoint: >
+      sh -c "echo 'Please wait 10 seconds until the facilities are available....' && \
+      sleep 10 && \
+      exec java -jar app.jar"
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db_data:
